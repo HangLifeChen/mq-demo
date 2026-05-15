@@ -17,6 +17,9 @@ public class MqConfig {
     // 构造方法执行完，并且依赖注入完成后才执行，自动被Spring调用
     @PostConstruct
     public void init(){
+        // 程序化设置mandatory，确保生效
+        rabbitTemplate.setMandatory(true);
+        log.info("RabbitTemplate mandatory 已设置为 true");
         rabbitTemplate.setReturnsCallback(new RabbitTemplate.ReturnsCallback() {
             @Override
             public void returnedMessage(@NonNull ReturnedMessage returned) {

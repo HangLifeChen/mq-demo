@@ -1,17 +1,20 @@
 package com.Hzqaq.listener;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.ExchangeTypes;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.support.converter.MessageConversionException;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
 import java.util.List;
 
 @Component
+@Slf4j
 public class SpringRabbitListener {
         // 利用RabbitListener来声明要监听的队列信息
     // 将来一旦监听的队列中有了消息，就会推送给当前服务，调用当前方法，处理消息。
@@ -75,4 +78,17 @@ public class SpringRabbitListener {
         String body = new String(message.getBody());
         System.out.println(Thread.currentThread().getName() + " 处理: " + body);
     }
+
+//    @RabbitListener(queues = "simple.queue")
+//    public void listenSimpleQueueMessage2(String msg) throws InterruptedException {
+//        log.info("spring 消费者接收到消息：【{}】", msg);
+//        throw new MessageConversionException("故意的");
+//    }
+    @RabbitListener(queues = "simple.queue")
+    public void listenSimpleQueueMessage2(String msg) throws InterruptedException {
+        log.info("spring 消费者接收到消息：【{}】", msg);
+        throw new RuntimeException("故意的");
+    }
+
+
 }
