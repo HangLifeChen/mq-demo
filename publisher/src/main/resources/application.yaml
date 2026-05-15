@@ -3,4 +3,9 @@ spring:
     host: 127.0.0.1 # ?????IP
     port: 5672 # ??
     username: admin # ???
-    password: 123456 # ??
+    password: 123456 # ???
+    publisher-confirm-type: correlated # 开启publisher confirm，异步回调
+logging:
+  level:
+    #    全局默认级别 TRACE < DEBUG < INFO < WARN < ERROR
+    root: info

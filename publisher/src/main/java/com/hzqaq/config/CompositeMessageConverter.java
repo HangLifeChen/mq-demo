@@ -1,18 +1,15 @@
-package com.Hzqaq.config;
+package com.hzqaq.config;
 
 import org.jspecify.annotations.NullMarked;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
-import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
-import org.springframework.amqp.support.converter.MessageConversionException;
-import org.springframework.amqp.support.converter.MessageConverter;
-import org.springframework.amqp.support.converter.SimpleMessageConverter;
+import org.springframework.amqp.support.converter.*;
 
 public class CompositeMessageConverter implements MessageConverter {
 
         private final JacksonJsonMessageConverter jsonConverter = new JacksonJsonMessageConverter();
         private final SimpleMessageConverter simpleConverter = new SimpleMessageConverter();
-        
+
         @Override
         @NullMarked
         public Message toMessage(Object object, MessageProperties messageProperties) throws MessageConversionException {
@@ -36,5 +33,6 @@ public class CompositeMessageConverter implements MessageConverter {
         }
         public void setCreateMessageIds(boolean b){
             jsonConverter.setCreateMessageIds(b);
+            simpleConverter.setCreateMessageIds(b);
         }
     }
